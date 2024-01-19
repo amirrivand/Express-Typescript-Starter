@@ -1,0 +1,20 @@
+import Routes from '@/interfaces/router.interface';
+import Auth from '@/middlewares/auth.middleware';
+import { Router } from 'express';
+
+export default class UsersRouter implements Routes {
+    public path = 'v1/sample';
+    public group = 'public';
+    public router = Router();
+    protected controller = new SampleController();
+
+    public middlewares = Auth.adminProtected;
+
+    constructor() {
+        this.init();
+    }
+
+    private init = () => {
+        this.router.get('/', this.controller.getAction);
+    };
+}
